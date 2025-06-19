@@ -177,13 +177,13 @@ class Program
         while (true)
         {
             Console.WriteLine("Izberite možnost:");
-            Console.WriteLine("1. Pretvori JSON v HTML");
+            Console.WriteLine("1. Pretvorba JSON v HTML");
             Console.WriteLine("2. Izhod");
             string choice = Console.ReadLine()?.Trim() ?? "";
             if (choice == "1")
             {
                 Console.Clear();
-                Console.WriteLine("Vnesite ime JSON datoteke: ");
+                Console.WriteLine("Vnesite polno ime JSON datoteke (s končnico .json): ");
                 string fileName = Console.ReadLine()?.Trim() ?? "";
                 do
                 {
@@ -208,14 +208,14 @@ class Program
                     string htmlFile = Path.ChangeExtension(fileName, ".html");
                     File.WriteAllText(htmlFile, html);
                     Console.WriteLine($"HTML datoteka '{htmlFile}' je bila uspešno ustvarjena.");
-                    Task.Delay(2000).Wait();
+                    Task.Delay(3000).Wait();
                     Console.Clear();
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine($"Podrobnosti: {ex.Message}");
                     Console.WriteLine("");
-                    Task.Delay(2000).Wait();
+                    Task.Delay(3000).Wait();
                     Console.Clear();
                 }
             }
@@ -228,7 +228,7 @@ class Program
             }
             else
             {
-                Console.WriteLine("Neveljavna izbira, poskusite znova.");
+                Console.WriteLine("Neveljavna izbira, izberite ponovno.");
             }
         }
     }
