@@ -54,8 +54,28 @@ class Program
                         {
                             if (meta.Key == "charset")
                                 sb.AppendLine($"{Indent(indent)}<meta charset=\"{meta.Value}\">");
+                            
                             else
-                                sb.AppendLine($"{Indent(indent)}<meta name=\"{meta.Key}\" content=\"{meta.Value}\">");
+                            {
+                                string contentValue;
+
+                                if (meta.Value is JsonValue)
+                                {
+                                    contentValue = Escape(meta.Value?.ToString() ?? "");
+                                }
+                                else if (meta.Value is JsonObject complex)
+                                {
+                                    contentValue = string.Join(", ",
+                                        complex.Select(p => $"{p.Key}={p.Value?.ToString()}"));
+                                    contentValue = Escape(contentValue);
+                                }
+                                else
+                                {
+                                    contentValue = Escape(meta.Value?.ToString() ?? "");
+                                }
+
+                                sb.AppendLine($"{Indent(indent)}<meta name=\"{meta.Key}\" content=\"{contentValue}\">");
+                            }
                         }
                         break;
 
